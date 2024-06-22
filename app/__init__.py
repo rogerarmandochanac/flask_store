@@ -6,6 +6,8 @@ from flask import url_for
 from flask_wtf.csrf import CSRFProtect
 from flask_mysqldb import MySQL
 
+from .models.modeloLibro import ModeloLibro
+
 app = Flask(__name__)
 
 csrf = CSRFProtect()
@@ -15,12 +17,12 @@ db = MySQL(app)
 
 @app.route('/')
 def index():
-    cursor = db.connection.cursor()
-    sql = "SELECT * FROM libro"
-    cursor.execute(sql)
-    data = cursor.fetchall()
-    print(data)
-    return render_template('index.html')
+    libros = ModeloLibro.listar(db)
+    print(libros)
+    data = {
+        'libros': libros
+    }
+    return render_template('index.html', data=data)
 
 
 @app.route('/login', methods=['GET', 'POST'])

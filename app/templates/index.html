@@ -1,5 +1,28 @@
 {% extends './body.html'%}
 {% block title%}Index{% endblock %}
 {% block container%}
-<h1>Hola Mundo</h1>
+<table class="table table-bordered mt-2">
+    <thead class="table-dark">
+        <tr>
+            <th>Isb</th>
+            <th>Titulo</th>
+            <th>Author</th>
+            <th>Fecha de nacimiento author</th>
+            <th>Año de edicion</th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for libro in data.libros %}
+            <tr>
+                <td>{{ libro.isbn }}</td>
+                <td>{{ libro.titulo }}</td>
+                <td>{{ libro.author.nombre}}</td>
+                <td>{{ libro.author.fecha_de_nacimiento}}</td>
+                <td>{{ libro.ano_de_edicion }}</td>
+                <td><button class="btn btn-primary pl-2">Editar</button><button class="btn btn-danger">Eliminar</button></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}
