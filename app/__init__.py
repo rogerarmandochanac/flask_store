@@ -4,10 +4,23 @@ from flask import request
 from flask import redirect
 from flask import url_for
 from flask_wtf.csrf import CSRFProtect
+from flask_mysqldb import MySQL
 
 app = Flask(__name__)
 
 csrf = CSRFProtect()
+
+db = MySQL(app)
+
+
+@app.route('/')
+def index():
+    cursor = db.connection.cursor()
+    sql = "SELECT * FROM libro"
+    cursor.execute(sql)
+    data = cursor.fetchall()
+    print(data)
+    return render_template('index.html')
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -17,11 +30,6 @@ def login():
         contraseña = request.form['contraseña']
         return redirect(url_for('index'))
     return render_template('auth/login.html')
-
-
-@app.route('/')
-def index():
-    return render_template('index.html')
 
 
 def pagina_no_encontrada(error):

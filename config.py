@@ -4,6 +4,10 @@ class Config:
 
 class DevelopmentConfig(Config):
     DEBUG = True
+    MYSQL_HOTS = 'localhost'
+    MYSQL_USER = 'admin'
+    MYSQL_PASSWORD = 'admin'
+    MYSQL_DB = 'tienda'
 
 
 config = {
